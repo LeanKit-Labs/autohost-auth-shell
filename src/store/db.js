@@ -12,24 +12,24 @@ function count( api, pattern ) {
 }
 
 function fetch( api, pattern, map, continuation ) {
-	var continuation = continuation || { sort: {} },
-		map = map || function( x ) { return x; },
-		apply = function( list ) { return _.map( list, map ); },
-		op = api.raw.find( pattern ).sort( continuation.sort ),
-		promise = // ?;
+	map = map || function( x ) { return x; };
+	continuation = continuation || { sort: {} };
+	var apply = function( list ) { return _.map( list, map ); };
+	var op = api.raw.find( pattern ).sort( continuation.sort );
+	var promise = // ?;
 	return when.try( apply, promise );
 }
 
 function fetchPage( api, pattern, map, continuation ) {
-	var limit = continuation.limit ? continuation.limit : continuation,
-		pageIndex = continuation.page ? continuation.page : 1,
-		skipCount = ( pageIndex -1 ) * limit,
-		sort = continuation.sort || {},
-		map = map || function( x ) { return x; },
-		apply = function( list ) {
+	map = map || function( x ) { return x; };
+	var limit = continuation.limit ? continuation.limit : continuation;
+	var pageIndex = continuation.page ? continuation.page : 1;
+	var skipCount = ( pageIndex -1 ) * limit;
+	var sort = continuation.sort || {};
+	var apply = function( list ) {
 			return _.map( list, map ); 
 		};
-		var promise = // ?
+	var promise = // ?
 	return when.try( apply, promise )
 				.then( function( data ) {
 					data.continuation = { limit: limit, page: pageIndex, sort: sort };
@@ -61,10 +61,8 @@ function upsert( pattern, doc ) {
 }
 
 module.exports = function( container ) {
-	
 	return {
 		count: count,
-		fetch: fetch,
 		fetch: function( pattern, map, continuation ) {
 			if( ( _.isObject( continuation ) && continuation.limit ) || _.isNumber( continuation ) ) {
 				return fetchPage( api, pattern, map, continuation );
