@@ -1,6 +1,5 @@
 var crypt = require( 'bcrypt' );
 var when = require( 'when' );
-var passport = require( 'passport' );
 var Basic = require( 'passport-http' ).BasicStrategy;
 var Bearer = require( 'passport-http-bearer' ).Strategy;
 var Token = require( './tokenStrategy' );
