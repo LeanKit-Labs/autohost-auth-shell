@@ -13,7 +13,6 @@
     "bcrypt": "~0.7.8",
     "configya": "~0.0.9",
     "lodash": "~2.4.1",
-    "passport": "~0.2.0",
     "passport-http": "^0.2.2",
     "passport-http-bearer": "^1.0.1",
     "passport-strategy": "^1.0.0",
